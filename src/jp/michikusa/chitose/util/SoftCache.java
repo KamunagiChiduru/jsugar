@@ -1,18 +1,24 @@
 package jp.michikusa.chitose.util;
 
+import java.lang.ref.SoftReference;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
 
+import jp.michikusa.chitose.annotation.ThreadSafety;
+import jp.michikusa.chitose.annotation.ThreadSafety.Level;
 
 /**
- * 非公開クラスsun.misc.SoftCacheへのプロクシ
- * @author  kamichidu
+ * {@link SoftReference}を用いたキャッシュ用クラス。<br>
+ * 
+ * @author kamichidu
  * @version 0.01
- * @since   2012/10/27
+ * @since 2012/10/27
  */
+@ThreadSafety(Level.UNSAFE)
 public class SoftCache<K, V> implements Map<K, V>{
 	private static final String CANONICAL_NAME= "sun.misc.SoftCache";
+	private static Class<?> clazz= null;
 	
 	private final Map<K, V> impl;
 	
@@ -20,12 +26,14 @@ public class SoftCache<K, V> implements Map<K, V>{
 		this.impl= newSoftCache();
 	}
 	
-	@SuppressWarnings("unchecked")
 	private static <K, V>Map<K, V> newSoftCache(){
 		try{
-			Class<?> clazz= Class.forName(CANONICAL_NAME);
+			if(clazz == null) clazz= Class.forName(CANONICAL_NAME);
 			
-			return (Map<K, V>)clazz.newInstance();
+			@SuppressWarnings("unchecked")
+			Map<K, V> t= (Map<K, V>)clazz.newInstance();
+			
+			return t;
 		}
 		catch(ClassNotFoundException | IllegalAccessException | InstantiationException e){
 			throw new AssertionError(e);
@@ -90,5 +98,20 @@ public class SoftCache<K, V> implements Map<K, V>{
 	@Override
 	public Set<Entry<K, V>> entrySet(){
 		return this.impl.entrySet();
+	}
+	
+	@Override
+	public boolean equals(Object obj){
+		return this.impl.equals(obj);
+	}
+	
+	@Override
+	public int hashCode(){
+		return this.impl.hashCode();
+	}
+	
+	@Override
+	public String toString(){
+		return this.impl.toString();
 	}
 }
