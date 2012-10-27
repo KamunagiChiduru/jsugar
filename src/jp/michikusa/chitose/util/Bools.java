@@ -1,5 +1,12 @@
 package jp.michikusa.chitose.util;
 
+/**
+ * 論理演算を提供するクラス。<br>
+ * 
+ * @author  kamichidu
+ * @version 0.01
+ * @since   2012/10/27
+ */
 public final class Bools{
 	private Bools(){}
 	
@@ -34,10 +41,10 @@ public final class Bools{
 	}
 	
 	public static boolean xor(boolean l, boolean r){
-		return (!l && r) || (l && !r);
+		return ( !l && r) || (l && !r);
 	}
 	
-	public static boolean xor(boolean l, boolean r, boolean ...exts){
+	public static boolean xor(boolean l, boolean r, boolean... exts){
 		boolean result= xor(l, r);
 		
 		for(boolean ext : exts)
@@ -50,7 +57,7 @@ public final class Bools{
 		return not(or(l, r));
 	}
 	
-	public static boolean nor(boolean l, boolean r, boolean...exts){
+	public static boolean nor(boolean l, boolean r, boolean... exts){
 		return not(or(l, r, exts));
 	}
 	
@@ -58,7 +65,7 @@ public final class Bools{
 		return not(and(l, r));
 	}
 	
-	public static boolean nand(boolean l, boolean r, boolean...exts){
+	public static boolean nand(boolean l, boolean r, boolean... exts){
 		return not(and(l, r, exts));
 	}
 }
