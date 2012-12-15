@@ -1,16 +1,64 @@
 package jp.michikusa.chitose.util;
 
+/**
+ * <p>
+ * 2つの要素を保持するためのコンテナクラス。<br>
+ * </p>
+ * <p>
+ * 
+ * <pre>{@code
+ * Pair<String, Integer> pair= new Pair<>("coming!", 69);
+ * 
+ * assertEquals("coming!", pair.first());
+ * assertEquals(69, pair.second());
+ * 
+ * Pair<String, String> bad_pair= new Pair<>("man", "man");
+ * 
+ * assertFalse(pair.equals(bad_pair));
+ * 
+ * Pair<String, Integer> good_pair= new Pair<>("coming!", 69);
+ * 
+ * assertTrue(pair.equals(good_pair));
+ * }</pre>
+ * </p>
+ * 
+ * @author kamichidu
+ * @version 0.01
+ * @since 2012/12/16
+ * @param <T1>
+ *            保持する要素型
+ * @param <T2>
+ *            保持する要素型
+ */
 public class Pair<T1, T2>{
+    /**
+     * 2つのオブジェクトによってコンテナを初期化する。<br>
+     * 
+     * @param first
+     *            1つ目の要素
+     * @param second
+     *            2つ目の要素
+     */
     public Pair(T1 first, T2 second){
         this.first= first;
         this.second= second;
     }
     
-    public T1 getFirst(){
+    /**
+     * 1つ目の要素を返す。<br>
+     * 
+     * @return 保持している1つ目の要素
+     */
+    public T1 first(){
         return this.first;
     }
     
-    public T2 getSecond(){
+    /**
+     * 2つ目の要素を返す。<br>
+     * 
+     * @return 保持している2つ目の要素
+     */
+    public T2 second(){
         return this.second;
     }
     
@@ -42,7 +90,7 @@ public class Pair<T1, T2>{
     
     @Override
     public String toString(){
-        return String.format("[%s, %s]", this.first, this.second);
+        return String.format("[first=%s, second=%s]", this.first, this.second);
     }
     
     private final T1 first;
