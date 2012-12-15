@@ -46,7 +46,17 @@ public class JsTable<E> extends JsWidget implements JsInputWidget<Collection<E>>
     
     @Override
     public void setInput(Collection<E> input){
-        this.viewer.setInput(input);
+        this.viewer.setInput(ImmutableList.copyOf(input));
+    }
+    
+    public void add(E val){
+        if(val != null){
+            this.viewer.add(val);
+        }
+    }
+    
+    public void add(Collection<E> val){
+        this.viewer.add(val.toArray());
     }
     
     @Override
