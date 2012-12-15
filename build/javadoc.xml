@@ -4,9 +4,12 @@
         <javadoc
             access="protected"
             author="true"
-			classpath="lib/swt-debug.jar:lib/org.eclipse.ui.workbench_3.103.0.v20120530-1824.jar:lib/guava-13.0.1.jar:lib/org.eclipse.equinox.common_3.6.100.v20120522-1841.jar:lib/org.eclipse.core.commands_3.6.1.v20120521-2329.jar:lib/org.eclipse.jface_3.8.0.v20120521-2329.jar:/home/kamichidu/documents/sources/java/eclipse/plugins/org.junit_4.10.0.v4_10_0_v20120426-0900/junit.jar:lib/org.eclipse.osgi_3.8.0.v20120529-1548.jar:lib/commons-lang3-3.1.jar:/home/kamichidu/documents/sources/java/eclipse/plugins/org.hamcrest.core_1.1.0.v20090501071000.jar"
+            classpath="../lib/commons-lang3-3.1.jar:../lib/guava-14.0-rc1.jar:../lib/org.eclipse.core.commands_3.6.1.v20120521-2329.jar:../lib/org.eclipse.equinox.common_3.6.100.v20120522-1841.jar:../lib/org.eclipse.jface_3.8.0.v20120521-2329.jar:../lib/org.eclipse.osgi_3.8.0.v20120529-1548.jar:../lib/org.eclipse.ui.workbench_3.103.0.v20120530-1824.jar:../lib/swt.jar"
             destdir="../doc"
             doctitle="jsugar API Specification"
+            encoding="UTF-8"
+            docencoding="UTF-8"
+            charset="UTF-8"
             nodeprecated="false"
             nodeprecatedlist="false"
             noindex="false"
@@ -18,7 +21,14 @@
             splitindex="true"
             use="true"
             version="true"
-        />
+        >
+            <!-- 標準APIへの外部リンク -->
+            <link href="http://docs.oracle.com/javase/7/docs/api/" />
+            <!-- guavaへの外部リンク -->
+            <link href="http://docs.guava-libraries.googlecode.com/git/javadoc/" />
+            <!-- swtへの外部リンク -->
+            <link href="http://help.eclipse.org/juno/topic/org.eclipse.platform.doc.isv/reference/api/" />
+        </javadoc>
 	</target>
 </project>
 
