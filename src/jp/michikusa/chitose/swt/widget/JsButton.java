@@ -1,7 +1,6 @@
 package jp.michikusa.chitose.swt.widget;
 
 import org.eclipse.jface.layout.GridDataFactory;
-import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 
@@ -25,56 +24,23 @@ public class JsButton extends JsWidget{
         return this.button;
     }
     
-    public static class JsButtonStyle extends JsWidgetStyle{
+    public static class JsButtonStyle extends JsButtonStyleBase<JsButtonStyle>{
         public JsButtonStyle(){
-            super(SWT.PUSH);
+            super();
         }
         
-        public JsButtonStyle arrow(){
-            return this.add(SWT.ARROW);
-        }
-        
-        // public JsButtonStyle check(){
-        // return this.add(SWT.CHECK);
-        // }
-        //
-        // public JsButtonStyle push(){
-        // return this.add(SWT.PUSH);
-        // }
-        //
-        // public JsButtonStyle radio(){
-        // return this.add(SWT.RADIO);
-        // }
-        
-        public JsButtonStyle toggle(){
-            return this.add(SWT.TOGGLE);
-        }
-        
-        public JsButtonStyle flat(){
-            return this.add(SWT.FLAT);
-        }
-        
-        public JsButtonStyle up(){
-            return this.add(SWT.UP);
-        }
-        
-        public JsButtonStyle down(){
-            return this.add(SWT.DOWN);
-        }
-        
-        public JsButtonStyle align(Align.Horizontal alignment){
-            return this.add(alignment.style());
-        }
-        
-        protected JsButtonStyle(int style){
+        JsButtonStyle(int style){
             super(style);
         }
         
         @Override
-        protected JsButtonStyle add(int new_style){
-            super.add(new_style);
+        JsButtonStyle self(){
             return this;
         }
+    }
+    
+    JsButton(Composite parent, JsButtonStyleBase<?> style){
+        this(parent, new JsButtonStyle(style.style()));
     }
     
     private final Button button;

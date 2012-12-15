@@ -16,7 +16,7 @@ import jp.michikusa.chitose.annotation.ThreadSafety.Level;
 public final class Comparators{
     private Comparators(){}
     
-    public static <E extends Comparable<E>>Comparator<E> makeAscComparator(Class<E> clazz){
+    public static <E extends Comparable<? super E>>Comparator<E> makeAscComparator(Class<E> clazz){
         return new Comparator<E>(){
             @Override
             public int compare(E o1, E o2){
@@ -25,7 +25,7 @@ public final class Comparators{
         };
     }
     
-    public static <E extends Comparable<E>>Comparator<E> makeDescComparator(Class<E> clazz){
+    public static <E extends Comparable<? super E>>Comparator<E> makeDescComparator(Class<E> clazz){
         return new Comparator<E>(){
             @Override
             public int compare(E o1, E o2){

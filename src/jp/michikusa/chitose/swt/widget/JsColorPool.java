@@ -37,11 +37,9 @@ public class JsColorPool{
         return new Color(Display.getDefault(), new RGB(r, g, b));
     }
     
-    private JsColorPool(){
-        this.color_map= Maps.newConcurrentMap();
-    }
+    private JsColorPool(){}
     
-    private static final JsColorPool instance= new JsColorPool();
+    private static final JsColorPool           instance  = new JsColorPool();
     
-    private final ConcurrentMap<String, Color> color_map;
+    private final ConcurrentMap<String, Color> color_map = Maps.newConcurrentMap();
 }

@@ -30,8 +30,10 @@ public class ClassTest{
     
     @Test
     public void コンストラクタの呼び方() throws Throwable{
+        @SuppressWarnings("rawtypes")
         Constructor<ArrayList> ctor= ArrayList.class.getConstructor(Collection.class);
         
+        @SuppressWarnings("unchecked")
         ArrayList<Integer> result= ctor.newInstance(Arrays.asList(1, 2, 3, 4, 5));
         
         assertEquals(Arrays.asList(1, 2, 3, 4, 5), result);

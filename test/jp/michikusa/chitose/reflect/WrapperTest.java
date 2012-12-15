@@ -1,6 +1,8 @@
 package jp.michikusa.chitose.reflect;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
@@ -30,7 +32,7 @@ public class WrapperTest{
         assertEquals(10, wrapper.get("final_int"));
     }
     
-    @Test(expected=ClassCastException.class)
+    @Test(expected= ClassCastException.class)
     public void 互換性のない型をセットしようしたとき(){
         Wrapper wrapper= new InstanceWrapper(this);
         
@@ -55,6 +57,8 @@ public class WrapperTest{
         }
     }
     
+    @SuppressWarnings("unused")
     private String    hoge;
+    @SuppressWarnings("unused")
     private final int final_int = 10;
 }

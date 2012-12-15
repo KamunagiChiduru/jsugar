@@ -28,7 +28,7 @@ public class Pair<T1, T2>{
         if(this == obj) return true;
         if(obj == null) return false;
         if(getClass() != obj.getClass()) return false;
-        Pair other= (Pair)obj;
+        Pair<?, ?> other= (Pair<?, ?>)obj;
         if(first == null){
             if(other.first != null) return false;
         }

@@ -9,7 +9,6 @@ import static jp.michikusa.chitose.util.Bools.nand;
 import static jp.michikusa.chitose.util.Bools.not;
 
 import java.lang.reflect.Method;
-import java.lang.reflect.TypeVariable;
 
 import com.google.common.collect.ImmutableList;
 

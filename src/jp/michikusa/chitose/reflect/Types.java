@@ -1,8 +1,12 @@
 package jp.michikusa.chitose.reflect;
 
+
 public final class Types{
-    public static <H, T>Class<T> getGenericsType(H holder, T...dummy){
-        return (Class<T>)dummy.getClass().getComponentType();
+    @SafeVarargs
+    public static <T>Class<T> infer(T... dummy){
+        @SuppressWarnings("unchecked")
+        Class<T> infered= (Class<T>)dummy.getClass().getComponentType();
+        return infered;
     }
     
     private Types(){}

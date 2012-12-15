@@ -1,10 +1,14 @@
 package jp.michikusa.chitose.swt.widget;
 
 import static jp.michikusa.chitose.util.Bools.not;
+
+import java.util.Arrays;
+
 import jp.michikusa.chitose.swt.widget.Align.Horizontal;
 import jp.michikusa.chitose.swt.widget.JsButton.JsButtonStyle;
 import jp.michikusa.chitose.swt.widget.JsLabel.JsLabelStyle;
 import jp.michikusa.chitose.swt.widget.JsRadioButton.JsRadioButtonStyle;
+import jp.michikusa.chitose.swt.widget.JsTable.JsTableStyle;
 import jp.michikusa.chitose.swt.widget.JsTextBox.JsTextBoxStyle;
 
 import org.eclipse.jface.layout.GridDataFactory;
@@ -19,13 +23,14 @@ import org.eclipse.swt.widgets.Text;
 
 public class JsDemo{
     private static void makeJsButton(Composite parent){
-        JsButtonStyle btnStyle= new JsButtonStyle().align(Horizontal.CENTER).arrow();
+        JsButtonStyle btnStyle= new JsButtonStyle().align(Horizontal.CENTER).arrow(
+                ArrowDirection.UP);
         
         JsButton btn= new JsButton(parent, btnStyle);
         btn.setLayoutData(GridDataFactory.fillDefaults().grab(true, false).create());
         
         Button obtn= new Button(parent, btnStyle.style());
-        btn.setLayoutData(btn.getLayoutData());
+        obtn.setLayoutData(btn.getLayoutData());
     }
     
     private static void makeJsLabel(Composite parent){
@@ -72,6 +77,69 @@ public class JsDemo{
         radio1.setText("選択肢2");
     }
     
+    private static void makeJsCheck(Composite parent){
+        JsCheckButton check= new JsCheckButton(parent);
+        
+        check.setText("チェック1");
+    }
+    
+    private static void makeJsTable(Composite parent){
+        parent.setLayoutData(GridDataFactory.fillDefaults().hint(200, 200).create());
+        
+        JsTable<String> t= new JsTable<>(parent, new JsTableStyle().single().border().check());
+        
+        t.setLayoutData(GridDataFactory.fillDefaults().grab(true, true).create());
+        
+        t.addColumn(new JsTableColumnAdaptor<String>(){
+            @Override
+            public JsTableColumnConfig config(){
+                return new JsTableColumnConfigAdaptor(){
+                    @Override
+                    public String caption(){
+                        return "そのまま";
+                    }
+                };
+            }
+            
+            @Override
+            public String text(String elm){
+                return elm;
+            }
+        }).addColumn(new JsTableColumnAdaptor<String>(){
+            @Override
+            public JsTableColumnConfig config(){
+                return new JsTableColumnConfigAdaptor(){
+                    @Override
+                    public String caption(){
+                        return "文字数";
+                    }
+                };
+            }
+            
+            @Override
+            public String text(String elm){
+                return String.valueOf(elm.length());
+            }
+        }).addColumn(new JsTableColumnAdaptor<String>(){
+            @Override
+            public JsTableColumnConfig config(){
+                return new JsTableColumnConfigAdaptor(){
+                    @Override
+                    public String caption(){
+                        return "空？";
+                    }
+                };
+            }
+            
+            @Override
+            public String text(String elm){
+                return String.valueOf(elm.isEmpty());
+            }
+        }).build();
+        
+        t.setInput(Arrays.asList("hoge", "piyo", "fuga"));
+    }
+    
     public static void main(String[] args){
         Display dis= new Display();
         Shell sh= new Shell(dis);
@@ -92,6 +160,8 @@ public class JsDemo{
         makeJsLabel(makeComposite(sh));
         makeJsText(makeComposite(sh));
         makeJsRadio(makeComposite(sh));
+        makeJsCheck(makeComposite(sh));
+        makeJsTable(makeComposite(sh));
         
         sh.open();
         while(not(sh.isDisposed())){

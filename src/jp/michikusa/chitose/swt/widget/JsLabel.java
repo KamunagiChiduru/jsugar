@@ -1,7 +1,6 @@
 package jp.michikusa.chitose.swt.widget;
 
 import org.eclipse.jface.layout.GridDataFactory;
-import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 
@@ -26,46 +25,9 @@ public class JsLabel extends JsWidget{
         return this.label.getStyle();
     }
     
-    public static class JsLabelStyle extends JsWidgetStyle{
-        public JsLabelStyle(){
-            super(SWT.NONE);
-        }
-        
-        public JsLabelStyle separator(){
-            return this.add(SWT.SEPARATOR);
-        }
-        
-        public JsLabelStyle horizontal(){
-            return this.add(SWT.HORIZONTAL);
-        }
-        
-        public JsLabelStyle vertical(){
-            return this.add(SWT.VERTICAL);
-        }
-        
-        public JsLabelStyle shadowIn(){
-            return this.add(SWT.SHADOW_IN);
-        }
-        
-        public JsLabelStyle shadowOut(){
-            return this.add(SWT.SHADOW_OUT);
-        }
-        
-        public JsLabelStyle shadowNone(){
-            return this.add(SWT.SHADOW_NONE);
-        }
-        
-        public JsLabelStyle align(Align.Horizontal alignment){
-            return this.add(alignment.style());
-        }
-        
-        public JsLabelStyle wrap(){
-            return this.add(SWT.WRAP);
-        }
-        
+    public static class JsLabelStyle extends JsLabelStyleBase<JsLabelStyle>{
         @Override
-        protected JsLabelStyle add(int new_style){
-            super.add(new_style);
+        protected JsLabelStyle self(){
             return this;
         }
     }

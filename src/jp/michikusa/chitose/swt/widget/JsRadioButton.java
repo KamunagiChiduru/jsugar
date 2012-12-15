@@ -37,9 +37,14 @@ public class JsRadioButton extends JsButton implements JsInputWidget<Boolean>{
         return this.button().getSelection();
     }
     
-    public static class JsRadioButtonStyle extends JsButtonStyle{
+    public static final class JsRadioButtonStyle extends JsButtonStyleBase<JsRadioButtonStyle>{
         public JsRadioButtonStyle(){
             super(SWT.RADIO);
+        }
+        
+        @Override
+        JsRadioButtonStyle self(){
+            return this;
         }
     }
     

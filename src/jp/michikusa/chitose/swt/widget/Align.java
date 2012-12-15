@@ -21,7 +21,7 @@ public enum Align{
     }
     
     public enum Vertical{
-        UP(SWT.UP),
+        TOP(SWT.UP),
         MIDDLE(SWT.CENTER),
         BOTTOM(SWT.DOWN), ;
         
