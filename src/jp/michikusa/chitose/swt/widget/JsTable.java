@@ -183,6 +183,6 @@ public class JsTable<E> extends JsWidget implements JsInputWidget<Collection<E>>
         }
     }
     
-    private TableViewer                                   viewer;
+    private final TableViewer                             viewer;
     private final ImmutableList<JsTableColumn<? super E>> columns;
 }
