@@ -8,12 +8,12 @@ public class ClassSwitcher extends Switcher<Class<?>>{
 	}
 	
 	@Override
-	protected SwitchExpression getExecutedExpression(Class<?> specified){
-		ImmutableSet<Class<?>> keys= this.getCases().keySet();
+	protected SwitchExpression executedExpression(Class<?> specified){
+		ImmutableSet<Class<?>> keys= this.cases().keySet();
 		
 		for(Class<?> key : keys){
 			if(key.isAssignableFrom(specified)){
-				return this.getCases().get(key);
+				return this.cases().get(key);
 			}
 		}
 		
