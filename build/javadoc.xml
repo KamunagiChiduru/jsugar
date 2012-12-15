@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project default="javadoc">
+	<target name="javadoc">
+        <javadoc
+            access="protected"
+            author="true"
+			classpath="lib/swt-debug.jar:lib/org.eclipse.ui.workbench_3.103.0.v20120530-1824.jar:lib/guava-13.0.1.jar:lib/org.eclipse.equinox.common_3.6.100.v20120522-1841.jar:lib/org.eclipse.core.commands_3.6.1.v20120521-2329.jar:lib/org.eclipse.jface_3.8.0.v20120521-2329.jar:/home/kamichidu/documents/sources/java/eclipse/plugins/org.junit_4.10.0.v4_10_0_v20120426-0900/junit.jar:lib/org.eclipse.osgi_3.8.0.v20120529-1548.jar:lib/commons-lang3-3.1.jar:/home/kamichidu/documents/sources/java/eclipse/plugins/org.hamcrest.core_1.1.0.v20090501071000.jar"
+            destdir="../doc"
+            doctitle="jsugar API Specification"
+            nodeprecated="false"
+            nodeprecatedlist="false"
+            noindex="false"
+            nonavbar="false"
+            notree="false"
+            packagenames="jp.michikusa.chitose.*"
+			source="1.7"
+            sourcepath="../src"
+            splitindex="true"
+            use="true"
+            version="true"
+        />
+	</target>
+</project>
+
