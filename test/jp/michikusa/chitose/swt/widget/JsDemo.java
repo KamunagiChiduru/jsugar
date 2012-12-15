@@ -86,56 +86,57 @@ public class JsDemo{
     private static void makeJsTable(Composite parent){
         parent.setLayoutData(GridDataFactory.fillDefaults().hint(200, 200).create());
         
-        JsTable<String> t= new JsTable<>(parent, new JsTableStyle().single().border().check());
+        JsTable<String> t= JsTable.<String>builder() //
+                .parent(parent) //
+                .style(new JsTableStyle().single().border().check()) //
+                .addColumn(new JsTableColumnAdaptor<String>(){
+                    @Override
+                    public JsTableColumnConfig config(){
+                        return new JsTableColumnConfigAdaptor(){
+                            @Override
+                            public String caption(){
+                                return "そのまま";
+                            }
+                        };
+                    }
+                    
+                    @Override
+                    public String text(String elm){
+                        return elm;
+                    }
+                }).addColumn(new JsTableColumnAdaptor<String>(){
+                    @Override
+                    public JsTableColumnConfig config(){
+                        return new JsTableColumnConfigAdaptor(){
+                            @Override
+                            public String caption(){
+                                return "文字数";
+                            }
+                        };
+                    }
+                    
+                    @Override
+                    public String text(String elm){
+                        return String.valueOf(elm.length());
+                    }
+                }).addColumn(new JsTableColumnAdaptor<String>(){
+                    @Override
+                    public JsTableColumnConfig config(){
+                        return new JsTableColumnConfigAdaptor(){
+                            @Override
+                            public String caption(){
+                                return "空？";
+                            }
+                        };
+                    }
+                    
+                    @Override
+                    public String text(String elm){
+                        return String.valueOf(elm.isEmpty());
+                    }
+                }).build();
         
         t.setLayoutData(GridDataFactory.fillDefaults().grab(true, true).create());
-        
-        t.addColumn(new JsTableColumnAdaptor<String>(){
-            @Override
-            public JsTableColumnConfig config(){
-                return new JsTableColumnConfigAdaptor(){
-                    @Override
-                    public String caption(){
-                        return "そのまま";
-                    }
-                };
-            }
-            
-            @Override
-            public String text(String elm){
-                return elm;
-            }
-        }).addColumn(new JsTableColumnAdaptor<String>(){
-            @Override
-            public JsTableColumnConfig config(){
-                return new JsTableColumnConfigAdaptor(){
-                    @Override
-                    public String caption(){
-                        return "文字数";
-                    }
-                };
-            }
-            
-            @Override
-            public String text(String elm){
-                return String.valueOf(elm.length());
-            }
-        }).addColumn(new JsTableColumnAdaptor<String>(){
-            @Override
-            public JsTableColumnConfig config(){
-                return new JsTableColumnConfigAdaptor(){
-                    @Override
-                    public String caption(){
-                        return "空？";
-                    }
-                };
-            }
-            
-            @Override
-            public String text(String elm){
-                return String.valueOf(elm.isEmpty());
-            }
-        }).build();
         
         t.setInput(Arrays.asList("hoge", "piyo", "fuga"));
     }

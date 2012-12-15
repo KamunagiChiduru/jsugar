@@ -2,7 +2,6 @@ package jp.michikusa.chitose.swt.widget;
 
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
 import jp.michikusa.chitose.reflect.Types;
@@ -22,13 +21,10 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.TableColumn;
 
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 
 public class JsTable<E> extends JsWidget implements JsInputWidget<Collection<E>>{
-    public JsTable(Composite parent, JsTableStyle style){
-        this(parent, style, Collections.<JsTableColumn<? super E>>emptyList());
-    }
-    
     @SafeVarargs
     public JsTable(Composite parent, JsTableStyle style, JsTableColumn<? super E>... columns){
         this(parent, style, Arrays.<JsTableColumn<? super E>>asList(columns));
@@ -36,30 +32,7 @@ public class JsTable<E> extends JsWidget implements JsInputWidget<Collection<E>>
     
     public JsTable(Composite parent, JsTableStyle style,
             Collection<? extends JsTableColumn<? super E>> columns){
-        super(parent);
-        
-        this.style= new JsTableStyle(style);
-        this.columns.addAll(columns);
-    }
-    
-    public JsTable<E> headerVisible(boolean visible){
-        this.header_visible= visible;
-        return this;
-    }
-    
-    public JsTable<E> lineVisible(boolean visible){
-        this.line_visible= visible;
-        return this;
-    }
-    
-    public JsTable<E> addColumn(JsTableColumn<? super E> column){
-        this.columns.add(column);
-        return this;
-    }
-    
-    public JsTable<E> build(){
-        this.lazyConstruct();
-        return this;
+        this(new Builder<E>().parent(parent).style(style).addColumns(columns));
     }
     
     public int columnCount(){
@@ -84,14 +57,77 @@ public class JsTable<E> extends JsWidget implements JsInputWidget<Collection<E>>
         return Lists.newArrayList(input);
     }
     
-    private void lazyConstruct(){
-        this.viewer= new TableViewer(this, this.style.style());
+    public static <E>Builder<E> builder(){
+        return new Builder<E>();
+    }
+    
+    public static class Builder<E>{
+        public Builder(){}
+        
+        public Builder<E> parent(Composite parent){
+            this.parent= parent;
+            return this;
+        }
+        
+        public Builder<E> style(JsTableStyle style){
+            this.style= style;
+            return this;
+        }
+        
+        public Builder<E> headerVisible(boolean visible){
+            this.header_visible= visible;
+            return this;
+        }
+        
+        public Builder<E> lineVisible(boolean visible){
+            this.line_visible= visible;
+            return this;
+        }
+        
+        public Builder<E> addColumn(JsTableColumn<? super E> column){
+            this.columns.add(column);
+            return this;
+        }
+        
+        public Builder<E> addColumns(Collection<? extends JsTableColumn<? super E>> columns){
+            this.columns.addAll(columns);
+            return this;
+        }
+        
+        public JsTable<E> build(){
+            return new JsTable<E>(this);
+        }
+        
+        private boolean                        header_visible = true;
+        private boolean                        line_visible   = true;
+        private Composite                      parent;
+        private JsTableStyle                   style;
+        private List<JsTableColumn<? super E>> columns        = Lists.newArrayList();
+    }
+    
+    public static class JsTableStyle extends JsTableStyleBase<JsTableStyle>{
+        @Override
+        JsTableStyle self(){
+            return this;
+        }
+    }
+    
+    private JsTableColumnConfig defaultConfig(JsTableColumnConfig conf){
+        if(conf != null){ return conf; }
+        return new JsTableColumnConfigAdaptor();
+    }
+    
+    private JsTable(Builder<E> builder){
+        super(builder.parent);
+        
+        this.viewer= new TableViewer(this, builder.style.style());
+        this.columns= ImmutableList.copyOf(builder.columns);
         
         this.viewer.getTable().setLayoutData(
                 GridDataFactory.fillDefaults().grab(true, true).create());
         
-        this.viewer.getTable().setHeaderVisible(this.header_visible);
-        this.viewer.getTable().setLinesVisible(this.line_visible);
+        this.viewer.getTable().setHeaderVisible(builder.header_visible);
+        this.viewer.getTable().setLinesVisible(builder.line_visible);
         this.viewer.setLabelProvider(new LabelProvideDispatcher());
         this.viewer.setContentProvider(new ArrayContentProvider());
         
@@ -113,26 +149,6 @@ public class JsTable<E> extends JsWidget implements JsInputWidget<Collection<E>>
                 impl.pack();
             }
         }
-    }
-    
-    public static class JsTableStyle extends JsTableStyleBase<JsTableStyle>{
-        public JsTableStyle(){
-            super();
-        }
-        
-        @Override
-        JsTableStyle self(){
-            return this;
-        }
-        
-        private JsTableStyle(JsTableStyle style){
-            super(style.style());
-        }
-    }
-    
-    private JsTableColumnConfig defaultConfig(JsTableColumnConfig conf){
-        if(conf != null){ return conf; }
-        return new JsTableColumnConfigAdaptor();
     }
     
     private final class LabelProvideDispatcher extends LabelProvider //
@@ -167,9 +183,6 @@ public class JsTable<E> extends JsWidget implements JsInputWidget<Collection<E>>
         }
     }
     
-    private TableViewer                          viewer;
-    private final JsTableStyle                   style;
-    private boolean                              header_visible = true;
-    private boolean                              line_visible   = true;
-    private final List<JsTableColumn<? super E>> columns        = Lists.newArrayList();
+    private TableViewer                                   viewer;
+    private final ImmutableList<JsTableColumn<? super E>> columns;
 }
